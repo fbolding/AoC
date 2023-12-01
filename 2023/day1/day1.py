@@ -17,12 +17,18 @@ def part2(data):
                     'four':'4','five':'5','six':'6',
                     'seven':'7', 'eight':'8', 'nine':'9'}
     for line in data:
-        for key in spelled_out:
-            index = line.find(key)
-            if index != -1:
-                line = line[:index+1] + spelled_out[key] + line[index + len(key) -1:]
-                #line = line.replace(key[1:-2],spelled_out[key])
-        digits = [int(c) for c in line if c.isdigit()]
+        digits = []
+        for idx, c in enumerate(line):
+            line = line + 'qqqq'
+            if c.isdigit():
+                digits.append(int(c))
+            else:
+                for key in spelled_out.keys():
+                    test = line[idx: idx+len(key)]
+                    if  test == key:
+                        digits.append(int(spelled_out[key]))
+                
+
         print(digits[0]*10 + digits[-1])
         sum += digits[0]*10 + digits[-1]        
     return sum
